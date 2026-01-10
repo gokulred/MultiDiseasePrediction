@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Diabetes Prediction</title>
+  </head>
+  <body>
+    <h1>Diabetes Prediction Form</h1>
+
+    <form method="POST">
+      <input
+        type="text"
+        name="f1"
+        placeholder="Pregnancies"
+        required
+      /><br /><br />
+      <input type="text" name="f2" placeholder="Glucose" required /><br /><br />
+      <input
+        type="text"
+        name="f3"
+        placeholder="BloodPressure"
+        required
+      /><br /><br />
+      <input
+        type="text"
+        name="f4"
+        placeholder="SkinThickness"
+        required
+      /><br /><br />
+      <input type="text" name="f5" placeholder="Insulin" required /><br /><br />
+      <input type="text" name="f6" placeholder="BMI" required /><br /><br />
+      <input
+        type="text"
+        name="f7"
+        placeholder="DiabetesPedigreeFunction"
+        required
+      /><br /><br />
+      <input type="text" name="f8" placeholder="Age" required /><br /><br />
+
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction is defined %}
+    <h2>Result:</h2>
+    <p>Prediction: {{ 'Diabetic' if prediction == 1 else 'Not Diabetic' }}</p>
+    <p>Probability: {{ probability }}</p>
+    <p>Risk Level: {{ risk }}</p>
+    {% endif %}
+
+    <br />
+    <a href="/">Back to Home</a>
+  </body>
+</html>
