@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block content %}
+
+<h1 class="text-3xl font-bold mb-6">🧠 Parkinson’s Prediction</h1>
+
+<form method="POST" class="bg-white p-6 rounded-xl shadow-md max-w-xl">
+  {% for i in range(22) %}
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="text"
+    name="f{{i}}"
+    placeholder="Feature {{i+1}}"
+    required
+  />
+  {% endfor %}
+
+  <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Predict
+  </button>
+</form>
+
+{% if prediction is defined %}
+<div
+  class="mt-6 p-4 rounded-lg {% if risk == 'Low' %} bg-green-100 text-green-800 {% elif risk == 'Medium' %} bg-yellow-100 text-yellow-800 {% else %} bg-red-100 text-red-800 {% endif %}"
+>
+  <p>
+    <b>Result:</b> {{ "Parkinson's Detected" if prediction == 1 else "Healthy"
+    }}
+  </p>
+  <p><b>Probability:</b> {{ probability }}</p>
+  <p><b>Risk Level:</b> {{ risk }}</p>
+</div>
+{% endif %} {% endblock %}

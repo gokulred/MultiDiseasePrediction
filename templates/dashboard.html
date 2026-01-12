@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+
+<h1 class="text-3xl font-bold mb-6">AI Health Risk Dashboard</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Diabetes -->
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <h2 class="text-xl font-bold mb-2">🩸 Diabetes</h2>
+    <p class="text-gray-600 mb-4">Predict diabetes risk using ML</p>
+    <a href="/diabetes" class="text-blue-600 font-semibold">Open →</a>
+  </div>
+
+  <!-- Heart -->
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <h2 class="text-xl font-bold mb-2">❤️ Heart Disease</h2>
+    <p class="text-gray-600 mb-4">Analyze heart disease risk</p>
+    <a href="/heart" class="text-blue-600 font-semibold">Open →</a>
+  </div>
+
+  <!-- Parkinsons -->
+  <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+    <h2 class="text-xl font-bold mb-2">🧠 Parkinson’s</h2>
+    <p class="text-gray-600 mb-4">Detect Parkinson’s disease</p>
+    <a href="/parkinsons" class="text-blue-600 font-semibold">Open →</a>
+  </div>
+</div>
+
+{% endblock %}

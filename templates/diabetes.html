@@ -1,52 +1,76 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Diabetes Prediction</title>
-  </head>
-  <body>
-    <h1>Diabetes Prediction Form</h1>
+{% extends "base.html" %} {% block content %}
 
-    <form method="POST">
-      <input
-        type="text"
-        name="f1"
-        placeholder="Pregnancies"
-        required
-      /><br /><br />
-      <input type="text" name="f2" placeholder="Glucose" required /><br /><br />
-      <input
-        type="text"
-        name="f3"
-        placeholder="BloodPressure"
-        required
-      /><br /><br />
-      <input
-        type="text"
-        name="f4"
-        placeholder="SkinThickness"
-        required
-      /><br /><br />
-      <input type="text" name="f5" placeholder="Insulin" required /><br /><br />
-      <input type="text" name="f6" placeholder="BMI" required /><br /><br />
-      <input
-        type="text"
-        name="f7"
-        placeholder="DiabetesPedigreeFunction"
-        required
-      /><br /><br />
-      <input type="text" name="f8" placeholder="Age" required /><br /><br />
+<h1 class="text-3xl font-bold mb-6">🩸 Diabetes Prediction</h1>
 
-      <button type="submit">Predict</button>
-    </form>
+<form method="POST" class="bg-white p-6 rounded-xl shadow-md max-w-xl">
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="f1"
+    placeholder="Pregnancies"
+    required
+  />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="f2"
+    placeholder="Glucose"
+    required
+  />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="f3"
+    placeholder="Blood Pressure"
+    required
+  />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="f4"
+    placeholder="Skin Thickness"
+    required
+  />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="f5"
+    placeholder="Insulin"
+    required
+  />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="text"
+    name="f6"
+    placeholder="BMI"
+    required
+  />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="text"
+    name="f7"
+    placeholder="Diabetes Pedigree Function"
+    required
+  />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="f8"
+    placeholder="Age"
+    required
+  />
 
-    {% if prediction is defined %}
-    <h2>Result:</h2>
-    <p>Prediction: {{ 'Diabetic' if prediction == 1 else 'Not Diabetic' }}</p>
-    <p>Probability: {{ probability }}</p>
-    <p>Risk Level: {{ risk }}</p>
-    {% endif %}
+  <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Predict
+  </button>
+</form>
 
-    <br />
-    <a href="/">Back to Home</a>
-  </body>
-</html>
+{% if prediction is defined %}
+<div
+  class="mt-6 p-4 rounded-lg {% if risk == 'Low' %} bg-green-100 text-green-800 {% elif risk == 'Medium' %} bg-yellow-100 text-yellow-800 {% else %} bg-red-100 text-red-800 {% endif %}"
+>
+  <p><b>Result:</b> {{ 'Diabetic' if prediction == 1 else 'Not Diabetic' }}</p>
+  <p><b>Probability:</b> {{ probability }}</p>
+  <p><b>Risk Level:</b> {{ risk }}</p>
+</div>
+{% endif %} {% endblock %}

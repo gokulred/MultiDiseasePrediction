@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AI Health Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="text-2xl font-bold text-blue-600">🏥 AI Health</div>
+        <div class="space-x-6">
+          <a href="/" class="font-medium hover:text-blue-600">Dashboard</a>
+          <a href="/diabetes" class="font-medium hover:text-blue-600"
+            >Diabetes</a
+          >
+          <a href="/heart" class="font-medium hover:text-blue-600">Heart</a>
+          <a href="/parkinsons" class="font-medium hover:text-blue-600"
+            >Parkinson’s</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto p-6">{% block content %}{% endblock %}</div>
+  </body>
+</html>

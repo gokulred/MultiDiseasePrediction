@@ -5,7 +5,7 @@ import pandas as pd
 
 app = Flask(__name__)
 
-# ----------------- LOAD MODELS -----------------
+#  MODELS 
 
 # Diabetes
 diabetes_model = pickle.load(open('models/diabetes_model.pkl','rb'))
@@ -15,7 +15,12 @@ heart_model = pickle.load(open('models/heart_model.pkl','rb'))
 heart_scaler = pickle.load(open('models/heart_scaler.pkl','rb'))
 heart_columns = pickle.load(open('models/heart_columns.pkl','rb'))
 
-# ----------------- UTIL -----------------
+# Parkinsons
+parkinsons_model = pickle.load(open('models/parkinsons_model.pkl','rb'))
+parkinsons_scaler = pickle.load(open('models/parkinsons_scaler.pkl','rb'))
+parkinsons_columns = pickle.load(open('models/parkinsons_columns.pkl','rb'))
+
+#  UTIL 
 
 def get_risk_level(prob):
     if prob < 0.3:
@@ -25,13 +30,14 @@ def get_risk_level(prob):
     else:
         return "High"
 
-# ----------------- ROUTES -----------------
+#  ROUTES 
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('dashboard.html')
 
-# ----------------- DIABETES -----------------
+
+#  DIABETES 
 
 @app.route('/diabetes', methods=['GET','POST'])
 def diabetes():
@@ -57,7 +63,7 @@ def diabetes():
 
     return render_template('diabetes.html')
 
-# ----------------- HEART -----------------
+#  HEART 
 
 @app.route('/heart', methods=['GET','POST'])
 def heart():
@@ -80,15 +86,10 @@ def heart():
 
         input_df = pd.DataFrame([input_dict])
 
-        # One-hot encode
         input_encoded = pd.get_dummies(input_df)
-
-        # Align columns
         input_encoded = input_encoded.reindex(columns=heart_columns, fill_value=0)
 
-        # Scale numerical columns
         numerical_cols = ['Age','RestingBP','Cholesterol','FastingBS','MaxHR','Oldpeak']
-
         input_encoded[numerical_cols] = heart_scaler.transform(input_encoded[numerical_cols])
 
         prob = heart_model.predict_proba(input_encoded)[0][1]
@@ -105,7 +106,31 @@ def heart():
 
     return render_template('heart.html')
 
-# ----------------- RUN -----------------
+#  PARKINSONS 
+
+@app.route('/parkinsons', methods=['GET','POST'])
+def parkinsons():
+    if request.method == 'POST':
+        features = [float(x) for x in request.form.values()]
+
+        input_df = pd.DataFrame([features], columns=parkinsons_columns)
+
+        input_scaled = parkinsons_scaler.transform(input_df)
+
+        prob = parkinsons_model.predict_proba(input_scaled)[0][1]
+        pred = parkinsons_model.predict(input_scaled)[0]
+
+        risk = get_risk_level(prob)
+
+        return render_template(
+            'parkinsons.html',
+            prediction=pred,
+            probability=round(prob, 3),
+            risk=risk
+        )
+
+    return render_template('parkinsons.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

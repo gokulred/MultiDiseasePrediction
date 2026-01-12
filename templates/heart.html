@@ -1,75 +1,95 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Heart Disease Prediction</title>
-  </head>
-  <body>
-    <h1>Heart Disease Prediction</h1>
+{% extends "base.html" %} {% block content %}
 
-    <form method="POST">
-      Age: <input type="number" name="Age" required /><br /><br />
+<h1 class="text-3xl font-bold mb-6">❤️ Heart Disease Prediction</h1>
 
-      Sex:
-      <select name="Sex">
-        <option value="M">Male</option>
-        <option value="F">Female</option></select
-      ><br /><br />
+<form method="POST" class="bg-white p-6 rounded-xl shadow-md max-w-xl">
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="Age"
+    placeholder="Age"
+    required
+  />
 
-      Chest Pain Type:
-      <select name="ChestPainType">
-        <option value="ASY">ASY</option>
-        <option value="ATA">ATA</option>
-        <option value="NAP">NAP</option>
-        <option value="TA">TA</option></select
-      ><br /><br />
+  <select class="w-full p-2 border rounded mb-3" name="Sex">
+    <option value="M">Male</option>
+    <option value="F">Female</option>
+  </select>
 
-      Resting BP: <input type="number" name="RestingBP" required /><br /><br />
-      Cholesterol:
-      <input type="number" name="Cholesterol" required /><br /><br />
-      Fasting Blood Sugar:
-      <select name="FastingBS">
-        <option value="0">0</option>
-        <option value="1">1</option></select
-      ><br /><br />
+  <select class="w-full p-2 border rounded mb-3" name="ChestPainType">
+    <option value="ASY">ASY</option>
+    <option value="ATA">ATA</option>
+    <option value="NAP">NAP</option>
+    <option value="TA">TA</option>
+  </select>
 
-      Resting ECG:
-      <select name="RestingECG">
-        <option value="Normal">Normal</option>
-        <option value="ST">ST</option>
-        <option value="LVH">LVH</option></select
-      ><br /><br />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="RestingBP"
+    placeholder="Resting BP"
+    required
+  />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="Cholesterol"
+    placeholder="Cholesterol"
+    required
+  />
 
-      Max Heart Rate: <input type="number" name="MaxHR" required /><br /><br />
+  <select class="w-full p-2 border rounded mb-3" name="FastingBS">
+    <option value="0">FastingBS = 0</option>
+    <option value="1">FastingBS = 1</option>
+  </select>
 
-      Exercise Angina:
-      <select name="ExerciseAngina">
-        <option value="N">No</option>
-        <option value="Y">Yes</option></select
-      ><br /><br />
+  <select class="w-full p-2 border rounded mb-3" name="RestingECG">
+    <option value="Normal">Normal</option>
+    <option value="ST">ST</option>
+    <option value="LVH">LVH</option>
+  </select>
 
-      Oldpeak: <input type="text" name="Oldpeak" required /><br /><br />
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="number"
+    name="MaxHR"
+    placeholder="Max HR"
+    required
+  />
 
-      ST Slope:
-      <select name="ST_Slope">
-        <option value="Up">Up</option>
-        <option value="Flat">Flat</option>
-        <option value="Down">Down</option></select
-      ><br /><br />
+  <select class="w-full p-2 border rounded mb-3" name="ExerciseAngina">
+    <option value="N">No</option>
+    <option value="Y">Yes</option>
+  </select>
 
-      <button type="submit">Predict</button>
-    </form>
+  <input
+    class="w-full p-2 border rounded mb-3"
+    type="text"
+    name="Oldpeak"
+    placeholder="Oldpeak"
+    required
+  />
 
-    {% if prediction is defined %}
-    <h2>Result:</h2>
-    <p>
-      Prediction: {{ 'Heart Disease Detected' if prediction == 1 else 'No Heart
-      Disease' }}
-    </p>
-    <p>Probability: {{ probability }}</p>
-    <p>Risk Level: {{ risk }}</p>
-    {% endif %}
+  <select class="w-full p-2 border rounded mb-3" name="ST_Slope">
+    <option value="Up">Up</option>
+    <option value="Flat">Flat</option>
+    <option value="Down">Down</option>
+  </select>
 
-    <br />
-    <a href="/">Back to Home</a>
-  </body>
-</html>
+  <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+    Predict
+  </button>
+</form>
+
+{% if prediction is defined %}
+<div
+  class="mt-6 p-4 rounded-lg {% if risk == 'Low' %} bg-green-100 text-green-800 {% elif risk == 'Medium' %} bg-yellow-100 text-yellow-800 {% else %} bg-red-100 text-red-800 {% endif %}"
+>
+  <p>
+    <b>Result:</b> {{ 'Heart Disease Detected' if prediction == 1 else 'No Heart
+    Disease' }}
+  </p>
+  <p><b>Probability:</b> {{ probability }}</p>
+  <p><b>Risk Level:</b> {{ risk }}</p>
+</div>
+{% endif %} {% endblock %}
