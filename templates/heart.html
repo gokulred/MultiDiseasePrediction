@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Heart Disease Prediction</title>
+  </head>
+  <body>
+    <h1>Heart Disease Prediction</h1>
+
+    <form method="POST">
+      Age: <input type="number" name="Age" required /><br /><br />
+
+      Sex:
+      <select name="Sex">
+        <option value="M">Male</option>
+        <option value="F">Female</option></select
+      ><br /><br />
+
+      Chest Pain Type:
+      <select name="ChestPainType">
+        <option value="ASY">ASY</option>
+        <option value="ATA">ATA</option>
+        <option value="NAP">NAP</option>
+        <option value="TA">TA</option></select
+      ><br /><br />
+
+      Resting BP: <input type="number" name="RestingBP" required /><br /><br />
+      Cholesterol:
+      <input type="number" name="Cholesterol" required /><br /><br />
+      Fasting Blood Sugar:
+      <select name="FastingBS">
+        <option value="0">0</option>
+        <option value="1">1</option></select
+      ><br /><br />
+
+      Resting ECG:
+      <select name="RestingECG">
+        <option value="Normal">Normal</option>
+        <option value="ST">ST</option>
+        <option value="LVH">LVH</option></select
+      ><br /><br />
+
+      Max Heart Rate: <input type="number" name="MaxHR" required /><br /><br />
+
+      Exercise Angina:
+      <select name="ExerciseAngina">
+        <option value="N">No</option>
+        <option value="Y">Yes</option></select
+      ><br /><br />
+
+      Oldpeak: <input type="text" name="Oldpeak" required /><br /><br />
+
+      ST Slope:
+      <select name="ST_Slope">
+        <option value="Up">Up</option>
+        <option value="Flat">Flat</option>
+        <option value="Down">Down</option></select
+      ><br /><br />
+
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction is defined %}
+    <h2>Result:</h2>
+    <p>
+      Prediction: {{ 'Heart Disease Detected' if prediction == 1 else 'No Heart
+      Disease' }}
+    </p>
+    <p>Probability: {{ probability }}</p>
+    <p>Risk Level: {{ risk }}</p>
+    {% endif %}
+
+    <br />
+    <a href="/">Back to Home</a>
+  </body>
+</html>
